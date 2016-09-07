@@ -2,7 +2,7 @@
 layout: page
 title: About
 ---
-## Hi,
+### Hi,
 
 I'm Andrzej and I'm Java developer (who happens to write more and more JavaScript recently).
 
