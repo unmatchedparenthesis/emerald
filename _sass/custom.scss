@@ -4,23 +4,30 @@
 
 #nav .social {
   display: inline-block;
+
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
+
   margin-left: 11px;
   width: 30px;
   height: 30px;
+
   @media (min-width: 940px) {
     margin-left: 15px;
     width: 40px;
     height: 40px;
   }
+
   &:hover {
     background-color: transparent;
     opacity:0.8;
   }
+
   &.github {
     background-image: url(/img/github-icon.png);
   }
+
   &.twitter {
     background-image: url(/img/twitter-icon.png);
   }
