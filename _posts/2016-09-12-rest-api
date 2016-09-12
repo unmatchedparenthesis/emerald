@@ -1,0 +1,49 @@
+---
+layout: post
+title: Creating REST API - server side
+---
+
+No software is a lonely island nowadays. Sooner or later your belowed program will have to connect to other systems. It might be some service providing weather forecast or a data storage. On the other side other software will connect to it, like web applications or some client having data for computations. The most probable way of this communication would be some REST-based protocol.
+
+In this post we will create simple service exposing REST API.
+
+# Starting web server
+
+First of all we need a means to handle HTTP requests. For this purpose we can use [ring](http://ring-clojure.github.io/ring/) which is a web application library.
+But ring alone is very low level. Let's add some routing library like [compojure](http://weavejester.github.io/compojure/).
+
+We can assemble the `project.cli` file adding dependencies one by one. However, we can use `lein` template and have whole project initialized just by executing:
+
+{% highlight bash %}
+lein new compojure rest-service
+{% endhighlight %}
+
+It creates project in folder `rest-service` and adds dependencies to `ring` and `compojure`. It also adds `lein-ring` plugin and its configuration.
+
+We can start the server to see if everything is ok up this point. Just execute following command from project folder:
+
+{% highlight bash %}
+lein ring server
+{% endhighlight %}
+
+It should open `http://localhost:3000` in your favourite browser with heartwarming message `Hello World`.
+
+## Some code analisys
+
+Current behaviour is defined in `src/rest_service/handler.clj` file. And this file is pointed in `project.clj` as setting under `:ring -> :handler`.
+
+`defroutes` macro defines ring's handler function composed of separate handlers defined for given method and path. Try changing this part of file to something like:
+
+
+{% highlight clojure %}
+(defroutes app-routes
+  (GET "/" [] "Hello, World!")
+  (GET "/foo" [] "bar")
+  (route/not-found "Not found"))
+{% endhighlight %}
+
+After saving file just open `http://localhost:3000/foo` (yep, no restart required - Clojure magic).
+
+# JSON response
+
+Ok, so we can return some value to the client and it looks ok at least for human. But for computer client we usually need some more structured data like JSON or XML.
