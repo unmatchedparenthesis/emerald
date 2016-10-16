@@ -30,3 +30,5 @@ defaults:
 custom_header: true
 custom_nav_footer: true
 reverse: false
+
+gems: [jekyll-paginate]
